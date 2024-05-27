@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask API Tesztelő</title>
+    <script>
+        async function testPathParam() {
+            const username = document.getElementById('username').value;
+            const response = await fetch(`/user/${username}`);
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function testQueryParam() {
+            const query = document.getElementById('query').value;
+            const response = await fetch(`/search?q=${query}`);
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function testSimpleGet() {
+            const response = await fetch(`/status`);
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function testPostJson() {
+            const jsonData = document.getElementById('jsonData').value;
+            const response = await fetch(`/data`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function testPostForm() {
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+            formData.append('age', document.getElementById('age').value);
+
+            const response = await fetch(`/submit`, {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function testSetCookie() {
+            const response = await fetch(`/setcookie`);
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function testGetCookie() {
+            const response = await fetch(`/getcookie`);
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Flask API Tesztelő</h1>
+    <div>
+        <h2>1. Útvonal paraméter</h2>
+        <input type="text" id="username" placeholder="Adja meg a felhasználónevet">
+        <button onclick="testPathParam()">Útvonal paraméter tesztelése</button>
+    </div>
+    <div>
+        <h2>2. Lekérdezési paraméter</h2>
+        <input type="text" id="query" placeholder="Adja meg a lekérdezést">
+        <button onclick="testQueryParam()">Lekérdezési paraméter tesztelése</button>
+    </div>
+    <div>
+        <h2>3. Egyszerű GET</h2>
+        <button onclick="testSimpleGet()">Egyszerű GET tesztelése</button>
+    </div>
+    <div>
+        <h2>4. POST JSON</h2>
+        <textarea id="jsonData" placeholder='Adja meg a JSON adatot, pl. {"key": "value"}'></textarea>
+        <button onclick="testPostJson()">POST JSON tesztelése</button>
+    </div>
+    <div>
+        <h2>5. POST Űrlap adatok</h2>
+        <input type="text" id="name" placeholder="Adja meg a nevet">
+        <input type="text" id="age" placeholder="Adja meg az életkort">
+        <button onclick="testPostForm()">POST Űrlap tesztelése</button>
+    </div>
+    <div>
+        <h2>6. Süti beállítása</h2>
+        <button onclick="testSetCookie()">Süti beállításának tesztelése</button>
+    </div>
+    <div>
+        <h2>7. Süti lekérése</h2>
+        <button onclick="testGetCookie()">Süti lekérésének tesztelése</button>
+    </div>
+    <div>
+        <h2>Eredmény</h2>
+        <pre id="result"></pre>
+    </div>
+</body>
+</html>

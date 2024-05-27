@@ -1,0 +1,28 @@
+Tesztelés parancsai
+Útvonal paraméter tesztelése:
+curl http://127.0.0.1:5000/user/johndoe
+
+Lekérdezési paraméter tesztelése:
+curl http://127.0.0.1:5000/search?q=flask
+
+Egyszerű GET kérés tesztelése:
+curl http://127.0.0.1:5000/status
+
+JSON adat küldése POST kéréssel:
+curl -X POST -H "Content-Type: application/json" -d '{"key": "value"}' http://127.0.0.1:5000/data
+
+HTML form adat küldése POST kéréssel:
+curl -X POST -d "name=John&age=30" http://127.0.0.1:5000/submit
+
+Süti beállítása és lekérdezése:
+beállítás
+curl -c cookies.txt http://127.0.0.1:5000/setcookie
+
+lekérdezés
+curl -b cookies.txt http://127.0.0.1:5000/getcookie
+
+Használat
+Ezek a parancsok segítenek a különböző végpontok tesztelésében a Flask alkalmazásodban. Indítsd el a Flask alkalmazást a következő parancs segítségével:
+flask run
+
+Ezután a fenti parancsokat futtatva ellenőrizheted, hogy a végpontok megfelelően működnek-e.
